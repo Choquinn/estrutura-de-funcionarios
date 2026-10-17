@@ -28,8 +28,8 @@ Sistema desenvolvido em linguagem C para gerenciar funcionários utilizando trê
 
 - `include/` — Arquivos de cabeçalho
 - `src/` — Implementação do sistema
-- `src/repositorios/` — Estratégias de armazenamento
-- `dados/` — Arquivos CSV
+- `src/repo/` — Estratégias de armazenamento
+- `data/` — Arquivos CSV
 - `tests/` — Testes do programa
 
 ## Compilação
@@ -39,19 +39,19 @@ Execute os comandos na raiz do projeto.
 ### Sistema convencional
 
 ```powershell
-gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repositorios/arquivo.c -o sistema_arquivo.exe
+gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repo/arquivo.c -o sistema_arquivo.exe
 ```
 
 ### Lista estática
 
 ```powershell
-gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repositorios/estatica.c -o sistema_estatica.exe
+gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repo/estatica.c -o sistema_estatica.exe
 ```
 
 ### Lista encadeada
 
 ```powershell
-gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repositorios/encadeada.c -o sistema_encadeada.exe
+gcc -std=c11 -Wall -Wextra -Wpedantic -fexec-charset=UTF-8 -Iinclude src/main.c src/console.c src/repo/encadeada.c -o sistema_encadeada.exe
 ```
 
 ## Estado do projeto
