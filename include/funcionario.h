@@ -21,4 +21,16 @@ typedef enum {
     SUPERIOR,
     POSGRADUACAO
 } NivelEscolaridade;
+
+typedef enum {
+    NAO_APLICAVEL,
+    INCOMPLETO,
+    COMPLETO
+} SituacaoEscolaridade;
+
+typedef struct {
+    NivelEscolaridade nivel;
+    SituacaoEscolaridade situacao;
+} Escolaridade;
+
 #endif

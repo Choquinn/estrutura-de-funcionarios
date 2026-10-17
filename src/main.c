@@ -13,7 +13,10 @@ int main(void) {
         .bairro = "Xinforinfula",
         .complemento = "Perto da Rebimboca da parafuseta"
     };
-    NivelEscolaridade nivel = SUPERIOR;
+    Escolaridade escolaridade = {
+        .nivel = SUPERIOR,
+        .situacao = INCOMPLETO
+    };
 
     printf("Sistema de funcionários\n");
     printf("Armazenamento: %s\n", nomeRepositorio());
@@ -25,10 +28,18 @@ int main(void) {
     printf("Bairro: %s\n", endereco.bairro);
     printf("Complemento: %s\n", endereco.complemento);
 
-    printf("\nEscolaridade: %d\n", nivel);
+    printf("\nEscolaridade:\n");
 
-    if (nivel == SUPERIOR) {
-        printf("O funcionário possui ensino superior.\n");
+    if (escolaridade.nivel == SUPERIOR) {
+        printf("Nível: Superior\n");
+    }
+
+    if (escolaridade.situacao == COMPLETO) {
+        printf("Situação: Completo\n");
+    } else if (escolaridade.situacao == INCOMPLETO) {
+        printf("Situação: Incompleto\n");
+    } else {
+        printf("Situação: Não aplicável\n");
     }
 
     return 0;
