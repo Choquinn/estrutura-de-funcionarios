@@ -54,5 +54,16 @@ int main(void) {
         f.dataNascimento.ano
     );
 
+    printf(
+        "Escolaridade: %s %s\n",
+        nivelEscolaridadeTexto(f.escolaridade.nivel),
+        situacaoEscolaridadeTexto(f.escolaridade.situacao)
+    );
+
+    printf(
+        "Estado civil: %s\n",
+        estadoCivilTexto(f.estadoCivil)
+    );
+
     return 0;
 }

@@ -55,4 +55,8 @@ typedef struct {
     Data dataAdmissao;
 } Funcionario;
 
+const char *nivelEscolaridadeTexto(NivelEscolaridade nivel);
+const char *situacaoEscolaridadeTexto(SituacaoEscolaridade situacao);
+const char *estadoCivilTexto(EstadoCivil estado);
+
 #endif
