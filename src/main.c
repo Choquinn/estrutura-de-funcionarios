@@ -17,6 +17,7 @@ int main(void) {
         .nivel = SUPERIOR,
         .situacao = INCOMPLETO
     };
+    EstadoCivil estado = CASADO;
 
     printf("Sistema de funcionários\n");
     printf("Armazenamento: %s\n", nomeRepositorio());
@@ -29,7 +30,6 @@ int main(void) {
     printf("Complemento: %s\n", endereco.complemento);
 
     printf("\nEscolaridade:\n");
-
     if (escolaridade.nivel == SUPERIOR) {
         printf("Nível: Superior\n");
     }
@@ -40,6 +40,29 @@ int main(void) {
         printf("Situação: Incompleto\n");
     } else {
         printf("Situação: Não aplicável\n");
+    }
+
+    printf("\nEstado civil: ");
+    switch (estado) {
+        case SOLTEIRO:
+            printf("Solteiro\n");
+            break;
+
+        case CASADO:
+            printf("Casado\n");
+            break;
+
+        case SEPARADO:
+            printf("Separado\n");
+            break;
+
+        case DIVORCIADO:
+            printf("Divorciado\n");
+            break;
+
+        case VIUVO:
+            printf("Viúvo\n");
+            break;
     }
 
     return 0;

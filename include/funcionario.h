@@ -33,4 +33,12 @@ typedef struct {
     SituacaoEscolaridade situacao;
 } Escolaridade;
 
+typedef enum {
+    SOLTEIRO,
+    CASADO,
+    SEPARADO,
+    DIVORCIADO,
+    VIUVO
+} EstadoCivil;
+
 #endif
