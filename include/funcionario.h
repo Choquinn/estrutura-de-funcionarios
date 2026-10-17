@@ -14,4 +14,11 @@ typedef struct {
     char complemento[81];
 } Endereco;
 
+typedef enum {
+    ANALFABETO,
+    FUNDAMENTAL,
+    MEDIO,
+    SUPERIOR,
+    POSGRADUACAO
+} NivelEscolaridade;
 #endif

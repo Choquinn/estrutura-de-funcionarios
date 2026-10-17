@@ -13,6 +13,7 @@ int main(void) {
         .bairro = "Xinforinfula",
         .complemento = "Perto da Rebimboca da parafuseta"
     };
+    NivelEscolaridade nivel = SUPERIOR;
 
     printf("Sistema de funcionários\n");
     printf("Armazenamento: %s\n", nomeRepositorio());
@@ -23,6 +24,12 @@ int main(void) {
     printf("Número: %d\n", endereco.numero);
     printf("Bairro: %s\n", endereco.bairro);
     printf("Complemento: %s\n", endereco.complemento);
+
+    printf("\nEscolaridade: %d\n", nivel);
+
+    if (nivel == SUPERIOR) {
+        printf("O funcionário possui ensino superior.\n");
+    }
 
     return 0;
 }
