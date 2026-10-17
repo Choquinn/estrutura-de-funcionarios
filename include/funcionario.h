@@ -1,5 +1,6 @@
 #ifndef FUNCIONARIO_H
 #define FUNCIONARIO_H
+#include <stdint.h>
 
 typedef struct {
     int dia;
@@ -8,10 +9,10 @@ typedef struct {
 } Data;
 
 typedef struct {
-    char rua[81];
+    char rua[80];
     int numero;
-    char bairro[61];
-    char complemento[81];
+    char bairro[60];
+    char complemento[80];
 } Endereco;
 
 typedef enum {
@@ -40,5 +41,18 @@ typedef enum {
     DIVORCIADO,
     VIUVO
 } EstadoCivil;
+
+typedef struct {
+    int id;
+    char nome[100];
+    char cpf[12];
+    Endereco endereco;
+    EstadoCivil estadoCivil;
+    Data dataNascimento;
+    Escolaridade escolaridade;
+    char cargo[80];
+    int64_t salarioCentavos;
+    Data dataAdmissao;
+} Funcionario;
 
 #endif

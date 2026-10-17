@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <inttypes.h>
+
 #include "console.h"
 #include "repositorio.h"
 #include "funcionario.h"
@@ -6,64 +8,51 @@
 int main(void) {
     configurarConsole();
 
-    Data dataNasc = {15, 2, 2007};
-    Endereco endereco = {
-        .rua = "Rua Itaquaquecetuba",
-        .numero = 69,
-        .bairro = "Xinforinfula",
-        .complemento = "Perto da Rebimboca da parafuseta"
+    Funcionario f = {
+        .id = 1,
+        .nome = "Ingrid Larissa de Albuquerque Freitas",
+        .cpf = "40028922012",
+
+        .endereco = {
+            .rua = "Rua Itaquaquecetuba",
+            .numero = 69,
+            .bairro = "Xinforinfula",
+            .complemento = "Perto da Rebimboca da parafuseta"
+        },
+
+        .estadoCivil = SOLTEIRO,
+        .dataNascimento = {15, 02, 2007},
+
+        .escolaridade = {
+            .nivel = SUPERIOR,
+            .situacao = INCOMPLETO
+        },
+
+        .cargo = "Desenvolvedor de Casamentos no Diário",
+        .salarioCentavos = 100099,
+        .dataAdmissao = {10, 10, 2026}
     };
-    Escolaridade escolaridade = {
-        .nivel = SUPERIOR,
-        .situacao = INCOMPLETO
-    };
-    EstadoCivil estado = CASADO;
 
-    printf("Sistema de funcionários\n");
-    printf("Armazenamento: %s\n", nomeRepositorio());
-    
-    printf("Data de nascimento: %02d/%02d/%04d\n", dataNasc.dia, dataNasc.mes, dataNasc.ano);
-    printf("\nEndereço do funcionário:\n");
-    printf("Rua: %s\n", endereco.rua);
-    printf("Número: %d\n", endereco.numero);
-    printf("Bairro: %s\n", endereco.bairro);
-    printf("Complemento: %s\n", endereco.complemento);
+    printf("Sistema de Funcionários\n");
+    printf("Armazenamento: %s\n\n", nomeRepositorio());
 
-    printf("\nEscolaridade:\n");
-    if (escolaridade.nivel == SUPERIOR) {
-        printf("Nível: Superior\n");
-    }
+    printf("ID: %d\n", f.id);
+    printf("Nome: %s\n", f.nome);
+    printf("CPF: %s\n", f.cpf);
+    printf("Cargo: %s\n", f.cargo);
 
-    if (escolaridade.situacao == COMPLETO) {
-        printf("Situação: Completo\n");
-    } else if (escolaridade.situacao == INCOMPLETO) {
-        printf("Situação: Incompleto\n");
-    } else {
-        printf("Situação: Não aplicável\n");
-    }
+    printf(
+        "Salário: R$ %" PRId64 ",%02" PRId64 "\n",
+        f.salarioCentavos / 100,
+        f.salarioCentavos % 100
+    );
 
-    printf("\nEstado civil: ");
-    switch (estado) {
-        case SOLTEIRO:
-            printf("Solteiro\n");
-            break;
-
-        case CASADO:
-            printf("Casado\n");
-            break;
-
-        case SEPARADO:
-            printf("Separado\n");
-            break;
-
-        case DIVORCIADO:
-            printf("Divorciado\n");
-            break;
-
-        case VIUVO:
-            printf("Viúvo\n");
-            break;
-    }
+    printf(
+        "Nascimento: %02d/%02d/%04d\n",
+        f.dataNascimento.dia,
+        f.dataNascimento.mes,
+        f.dataNascimento.ano
+    );
 
     return 0;
 }
