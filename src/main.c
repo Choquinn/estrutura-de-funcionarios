@@ -78,5 +78,44 @@ int main(void) {
     printf("31/04/2026: %s\n", dataValida(teste3) ? "Válida" : "Inválida");
     printf("15/10/2000: %s\n", dataValida(teste4) ? "Válida" : "Inválida");
 
+    printf("\nTestando validação de textos:\n\n");
+
+    printf(
+        "Nome: %s\n",
+        textoObrigatorioValido(f.nome, sizeof(f.nome))
+            ? "Válido" : "Inválido"
+    );
+
+    printf(
+        "Cargo: %s\n",
+        textoObrigatorioValido(f.cargo, sizeof(f.cargo))
+            ? "Válido" : "Inválido"
+    );
+
+    char nomeVazio[] = "";
+    char nomeEspacos[] = "     ";
+
+    printf(
+        "Nome vazio: %s\n",
+        textoObrigatorioValido(nomeVazio, sizeof(nomeVazio))
+            ? "Válido" : "Inválido"
+    );
+
+    printf(
+        "Nome com espaços: %s\n",
+        textoObrigatorioValido(nomeEspacos, sizeof(nomeEspacos))
+            ? "Válido" : "Inválido"
+    );
+
+    char textoSemTerminador[5] = {'T', 'e', 's', 't', 'e'};
+
+    printf(
+        "Texto sem terminador: %s\n",
+        textoObrigatorioValido(
+            textoSemTerminador,
+            sizeof(textoSemTerminador)
+        ) ? "Válido" : "Inválido"
+    );
+
     return 0;
 }
