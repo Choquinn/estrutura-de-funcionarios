@@ -6,12 +6,23 @@
 int main(void) {
     configurarConsole();
 
-    data dataNasc = {15, 2, 2007};
+    Data dataNasc = {15, 2, 2007};
+    Endereco endereco = {
+        .rua = "Rua Itaquaquecetuba",
+        .numero = 69,
+        .bairro = "Xinforinfula",
+        .complemento = "Perto da Rebimboca da parafuseta"
+    };
 
     printf("Sistema de funcionários\n");
     printf("Armazenamento: %s\n", nomeRepositorio());
     
     printf("Data de nascimento: %02d/%02d/%04d\n", dataNasc.dia, dataNasc.mes, dataNasc.ano);
+    printf("\nEndereço do funcionário:\n");
+    printf("Rua: %s\n", endereco.rua);
+    printf("Número: %d\n", endereco.numero);
+    printf("Bairro: %s\n", endereco.bairro);
+    printf("Complemento: %s\n", endereco.complemento);
 
     return 0;
 }
