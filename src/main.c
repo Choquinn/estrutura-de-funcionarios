@@ -4,6 +4,7 @@
 #include "console.h"
 #include "repositorio.h"
 #include "funcionario.h"
+#include "validacao.h"
 
 int main(void) {
     configurarConsole();
@@ -64,6 +65,18 @@ int main(void) {
         "Estado civil: %s\n",
         estadoCivilTexto(f.estadoCivil)
     );
+
+    Data teste1 = {29, 2, 2024};
+    Data teste2 = {29, 2, 2025};
+    Data teste3 = {31, 4, 2026};
+    Data teste4 = {15, 10, 2000};
+
+    printf("\nTestando validação de datas:\n\n");
+
+    printf("29/02/2024: %s\n", dataValida(teste1) ? "Válida" : "Inválida");
+    printf("29/02/2025: %s\n", dataValida(teste2) ? "Válida" : "Inválida");
+    printf("31/04/2026: %s\n", dataValida(teste3) ? "Válida" : "Inválida");
+    printf("15/10/2000: %s\n", dataValida(teste4) ? "Válida" : "Inválida");
 
     return 0;
 }
