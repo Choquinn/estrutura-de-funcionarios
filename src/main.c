@@ -5,6 +5,7 @@
 #include "repositorio.h"
 #include "funcionario.h"
 #include "validacao.h"
+#include "entrada.h"
 
 int main(void) {
     configurarConsole();
@@ -12,7 +13,7 @@ int main(void) {
     Funcionario f = {
         .id = 1,
         .nome = "Ingrid Larissa de Albuquerque Freitas",
-        .cpf = "40028922012",
+        .cpf = "12345678909",
 
         .endereco = {
             .rua = "Rua Itaquaquecetuba",
@@ -116,6 +117,167 @@ int main(void) {
             sizeof(textoSemTerminador)
         ) ? "Válido" : "Inválido"
     );
+
+    printf("Número da casa válido: %s\n", numeroEnderecoValido(f.endereco.numero) ? "Válido" : "Inválido");
+
+    printf("\nTestando validação de CPF:\n\n");
+
+    char cpfs[][20] = {
+        "12345678909",
+        "12345678900",
+        "00000000000",
+        "1234567890",
+        "1234567890A"
+    };
+
+    for (int i = 0; i < 5; i++) {
+        printf(
+            "CPF %s: %s\n",
+            cpfs[i],
+            cpfValido(cpfs[i], sizeof(cpfs[i]))
+                ? "Válido" : "Inválido"
+        );
+    }
+
+    printf("\nTestando validação de escolaridade:\n\n");
+
+    Escolaridade testes[] = {
+        {ANALFABETO, NAO_APLICAVEL},
+        {ANALFABETO, COMPLETO},
+        {FUNDAMENTAL, INCOMPLETO},
+        {MEDIO, COMPLETO},
+        {SUPERIOR, NAO_APLICAVEL},
+        {POSGRADUACAO, COMPLETO},
+        {(NivelEscolaridade)99, COMPLETO}
+    };
+
+    int quantidade = sizeof(testes) / sizeof(testes[0]);
+
+    for (int i = 0; i < quantidade; i++) {
+        printf(
+            "%s - %s: %s\n",
+            nivelEscolaridadeTexto(testes[i].nivel),
+            situacaoEscolaridadeTexto(testes[i].situacao),
+            escolaridadeValida(testes[i]) ? "Válido" : "Inválido"
+        );
+    }
+
+    printf("\nTestando validação de estado civil:\n\n");
+
+    EstadoCivil testesEstado[] = {
+        SOLTEIRO,
+        CASADO,
+        SEPARADO,
+        DIVORCIADO,
+        VIUVO,
+        (EstadoCivil)99
+    };
+
+    size_t quantidadeEstados = sizeof(testesEstado) / sizeof(testesEstado[0]);
+
+    for (size_t i = 0; i < quantidadeEstados; i++) {
+        printf(
+            "%s: %s\n",
+            estadoCivilTexto(testesEstado[i]),
+            estadoCivilValido(testesEstado[i])
+                ? "Válido" : "Inválido"
+        );
+    }
+
+    printf("\nTestando validação de salários:\n\n");
+
+    const char *salarios[] = {
+        "1850,75",
+        "1000",
+        "99,9",
+        "0,05",
+        "-1500,00",
+        "1500,999",
+        "abc",
+        "92233720368547758,08"
+    };
+
+    size_t quantidadeSalarios = sizeof(salarios) / sizeof(salarios[0]);
+
+    for (size_t i = 0; i < quantidadeSalarios; i++) {
+        int64_t valor;
+
+        if (converterSalario(salarios[i], &valor)) {
+            printf(
+                "%s -> %" PRId64 " centavos\n",
+                salarios[i],
+                valor
+            );
+        } else {
+            printf("%s -> Inválido\n", salarios[i]);
+        }
+    }
+
+    Data hoje = {19, 10, 2026};
+
+    printf("\nTestando datas do funcionário:\n\n");
+
+    printf(
+        "Nascimento e admissão: %s\n",
+        datasFuncionarioValidas(
+            f.dataNascimento,
+            f.dataAdmissao,
+            hoje
+        ) ? "Válidas" : "Inválidas"
+    );
+
+    Data nascimento = {15, 2, 2007};
+
+    Data admissaoValida = {10, 10, 2026};
+    Data admissaoFutura = {20, 10, 2026};
+    Data admissaoAntesNascimento = {1, 1, 2000};
+    Data admissaoInexistente = {31, 2, 2026};
+
+    printf("\nTestando situações inválidas:\n\n");
+
+    printf(
+        "Admissão válida: %s\n",
+        datasFuncionarioValidas(nascimento, admissaoValida, hoje)
+            ? "Válido" : "Inválido"
+    );
+
+    printf(
+        "Admissão futura: %s\n",
+        datasFuncionarioValidas(nascimento, admissaoFutura, hoje)
+            ? "Válido" : "Inválido"
+    );
+
+    printf(
+        "Admissão antes do nascimento: %s\n",
+        datasFuncionarioValidas(nascimento, admissaoAntesNascimento, hoje)
+            ? "Válido" : "Inválido"
+    );
+
+    printf(
+        "Admissão inexistente: %s\n",
+        datasFuncionarioValidas(nascimento, admissaoInexistente, hoje)
+            ? "Válido" : "Inválido"
+    );
+
+    printf("\nValidação completa do funcionário:\n\n");
+
+    ResultadoValidacao resultado = validarFuncionario(&f, hoje);
+
+    printf("%s\n", mensagemValidacaoFuncionario(resultado));
+
+    printf(
+        "Funcionário válido? %s\n",
+        funcionarioValido(&f, hoje) ? "Sim" : "Não"
+    );
+
+    char nomeDigitado[100];
+    printf("\nTestando entrada de dados:\n\n");
+    if (lerLinha("Digite seu nome: ", nomeDigitado, sizeof(nomeDigitado))) {
+        if (textoObrigatorioValido(nomeDigitado, sizeof(nomeDigitado))) printf("Nome informado: %s\n", nomeDigitado);
+        else printf("O nome não pode estar vazio!\n");
+    } else {
+        printf("Não foi possível ler o nome ou a entrada excedeu o limite.\n");
+    }
 
     return 0;
 }

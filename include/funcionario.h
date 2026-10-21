@@ -1,5 +1,6 @@
 #ifndef FUNCIONARIO_H
 #define FUNCIONARIO_H
+#define ENDERECO_S_NUM 0;
 #include <stdint.h>
 
 typedef struct {
