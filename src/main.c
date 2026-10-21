@@ -279,5 +279,38 @@ int main(void) {
         printf("Não foi possível ler o nome ou a entrada excedeu o limite.\n");
     }
 
+    printf("\nTestando conversão de inteiros:\n\n");
+    const char *entradas[] = {
+        "25",
+        "0",
+        "-15",
+        "123abc",
+        "abc",
+        "",
+        "9999999999999999999999999"
+    };
+
+    size_t quantidadeEntradas = sizeof(entradas) / sizeof(entradas[0]);
+
+    for (size_t i = 0; i < quantidadeEntradas; i++) {
+        int numero;
+
+        if (converterInteiro(entradas[i], &numero)) printf("\"%s\" -> %d\n", entradas[i], numero);
+        else printf("\"%s\" -> Inválido\n", entradas[i]);
+    }
+
+    char entrada[50];
+    int numero;
+
+    if (lerLinha("Digite um número: ", entrada, sizeof(entrada))) {
+        if (converterInteiro(entrada, &numero)) {
+            printf("Número informado: %d\n", numero);
+        } else {
+            printf("Número inválido!\n");
+        }
+    } else {
+        printf("Erro ao ler o número.\n");
+    }
+
     return 0;
 }
