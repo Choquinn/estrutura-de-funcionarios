@@ -1,4 +1,5 @@
 #include "entrada.h"
+#include "validacao.h"
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>
@@ -75,6 +76,30 @@ bool lerInteiro(const char *mensagem, int *resultado, int minimo, int maximo) {
         }
 
         *resultado = numero;
+
+        return true;
+    }
+}
+
+bool lerTextoObrigatorio(const char *mensagem, char *destino, size_t capacidade) {
+    if (destino == NULL || capacidade < 2) {
+        return false;
+    }
+
+    while (true) {
+        if (!lerLinha(mensagem, destino, capacidade)) {
+            if (feof(stdin) || ferror(stdin)) {
+                return false;
+            }
+
+            printf("Texto muito longo! Tente novamente.\n\n");
+            continue;
+        }
+
+        if (!textoObrigatorioValido(destino, capacidade)) {
+            printf("Campo obrigatório! Digite um texto válido.\n\n");
+            continue;
+        }
 
         return true;
     }

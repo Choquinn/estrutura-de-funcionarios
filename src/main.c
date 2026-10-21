@@ -322,5 +322,30 @@ int main(void) {
         printf("Leitura encerrada.\n");
     }
 
+    char nomeObrigatorio[100];
+    char cargoObrigatorio[80];
+
+    printf("\nTestando textos obrigatórios:\n\n");
+
+    if (!lerTextoObrigatorio(
+            "Nome do funcionário: ",
+            nomeObrigatorio,
+            sizeof(nomeObrigatorio))) {
+        printf("Leitura encerrada.\n");
+        return 1;
+    }
+
+    if (!lerTextoObrigatorio(
+            "Cargo do funcionário: ",
+            cargoObrigatorio,
+            sizeof(cargoObrigatorio))) {
+        printf("Leitura encerrada.\n");
+        return 1;
+    }
+
+    printf("\nDados informados:\n");
+    printf("Nome: %s\n", nomeObrigatorio);
+    printf("Cargo: %s\n", cargoObrigatorio);
+
     return 0;
 }
