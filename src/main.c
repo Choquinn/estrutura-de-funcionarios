@@ -312,5 +312,15 @@ int main(void) {
         printf("Erro ao ler o número.\n");
     }
 
+    int opcao;
+
+    printf("\nTestando leitura de inteiros:\n\n");
+
+    if (lerInteiro("Digite uma opção (0 a 5): ", &opcao, 0, 5)) {
+        printf("Opção selecionada: %d\n", opcao);
+    } else {
+        printf("Leitura encerrada.\n");
+    }
+
     return 0;
 }

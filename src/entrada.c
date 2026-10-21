@@ -41,3 +41,41 @@ bool converterInteiro(const char *texto, int *resultado) {
     *resultado = (int)numero;
     return true;
 }
+
+bool lerInteiro(const char *mensagem, int *resultado, int minimo, int maximo) {
+    if (resultado == NULL || minimo > maximo) {
+        return false;
+    }
+
+    char entrada[64];
+    int numero;
+
+    while (true) {
+        if (!lerLinha(mensagem, entrada, sizeof(entrada))) {
+            if (feof(stdin) || ferror(stdin)) {
+                return false;
+            }
+
+            printf("Entrada muito longa! Tente novamente.\n\n");
+            continue;
+        }
+
+        if (!converterInteiro(entrada, &numero)) {
+            printf("Entrada inválida! Digite um número inteiro.\n\n");
+            continue;
+        }
+
+        if (numero < minimo || numero > maximo) {
+            printf(
+                "O número deve estar entre %d e %d.\n\n",
+                minimo,
+                maximo
+            );
+            continue;
+        }
+
+        *resultado = numero;
+
+        return true;
+    }
+}

@@ -6,5 +6,11 @@
 
 bool lerLinha(const char *mensagem, char *destino, size_t capacidade);
 bool converterInteiro(const char *texto, int *resultado);
+bool lerInteiro(
+    const char *mensagem,
+    int *resultado,
+    int minimo,
+    int maximo
+);
 
 #endif
