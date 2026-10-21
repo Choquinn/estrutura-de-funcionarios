@@ -13,5 +13,8 @@ bool lerData(const char *mensagem, Data *resultado);
 bool lerEndereco(Endereco *resultado);
 bool lerEscolaridade(Escolaridade *resultado);
 bool lerEstadoCivil(EstadoCivil *resultado);
+bool lerCpf(char *destino, size_t capacidade);
+bool lerSalario(int64_t *resultado);
+bool lerFuncionarioDados(Funcionario *resultado, Data hoje);
 
 #endif

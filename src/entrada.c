@@ -211,3 +211,123 @@ bool lerEstadoCivil(EstadoCivil *resultado) {
     *resultado = (EstadoCivil)opcao;
     return true;
 }
+
+bool lerCpf(char *destino, size_t capacidade) {
+    if (destino == NULL || capacidade < 12) {
+        return false;
+    }
+
+    while (true) {
+        if (!lerLinha("CPF (11 dígitos): ", destino, capacidade)) {
+            if (feof(stdin) || ferror(stdin)) {
+                return false;
+            }
+
+            printf("CPF muito longo!\n\n");
+            continue;
+        }
+
+        if (!cpfValido(destino, capacidade)) {
+            printf("CPF inválido! Tente novamente.\n\n");
+            continue;
+        }
+
+        return true;
+    }
+}
+
+bool lerSalario(int64_t *resultado) {
+    if (resultado == NULL) {
+        return false;
+    }
+
+    char entrada[64];
+    int64_t salario;
+
+    while (true) {
+        if (!lerLinha("Salário (ex: 1850,75): ", entrada, sizeof(entrada))) {
+            if (feof(stdin) || ferror(stdin)) {
+                return false;
+            }
+
+            printf("Entrada muito longa!\n\n");
+            continue;
+        }
+
+        if (!converterSalario(entrada, &salario) || !salarioValido(salario)) {
+            printf("Salário inválido! Tente novamente.\n\n");
+            continue;
+        }
+
+        *resultado = salario;
+        return true;
+    }
+}
+
+bool lerFuncionarioDados(Funcionario *resultado, Data hoje) {
+    if (resultado == NULL || !dataValida(hoje)) {
+        return false;
+    }
+
+    Funcionario f = {0};
+
+    printf("\n=== Cadastro de Funcionário ===\n\n");
+
+    if (!lerTextoObrigatorio("Nome: ", f.nome, sizeof(f.nome))) {
+        return false;
+    }
+
+    if (!lerCpf(f.cpf, sizeof(f.cpf))) {
+        return false;
+    }
+
+    if (!lerEndereco(&f.endereco)) {
+        return false;
+    }
+
+    if (!lerEstadoCivil(&f.estadoCivil)) {
+        return false;
+    }
+
+    while (true) {
+        if (!lerData("Data de nascimento:", &f.dataNascimento)) {
+            return false;
+        }
+
+        if (compararDatas(f.dataNascimento, hoje) <= 0) {
+            break;
+        }
+
+        printf("O nascimento não pode ser no futuro!\n");
+    }
+
+    if (!lerEscolaridade(&f.escolaridade)) {
+        return false;
+    }
+
+    if (!lerTextoObrigatorio("Cargo: ", f.cargo, sizeof(f.cargo))) {
+        return false;
+    }
+
+    if (!lerSalario(&f.salarioCentavos)) {
+        return false;
+    }
+
+    while (true) {
+        if (!lerData("Data de admissão:", &f.dataAdmissao)) {
+            return false;
+        }
+
+        if (datasFuncionarioValidas(
+                f.dataNascimento,
+                f.dataAdmissao,
+                hoje)) {
+            break;
+        }
+
+        printf("Data de admissão inválida!\n");
+    }
+
+    *resultado = f;
+    return true;
+}
