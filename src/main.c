@@ -347,5 +347,41 @@ int main(void) {
     printf("Nome: %s\n", nomeObrigatorio);
     printf("Cargo: %s\n", cargoObrigatorio);
 
+    Data data;
+    Endereco endereco;
+    Escolaridade escolaridade;
+    EstadoCivil estadoCivil;
+
+    if (!lerData("Data de nascimento:", &data)) return 1;
+    if (!lerEndereco(&endereco)) return 1;
+    if (!lerEscolaridade(&escolaridade)) return 1;
+    if (!lerEstadoCivil(&estadoCivil)) return 1;
+
+    printf("\nDados informados:\n\n");
+
+    printf(
+        "Nascimento: %02d/%02d/%04d\n",
+        data.dia, data.mes, data.ano
+    );
+
+    printf("Rua: %s\n", endereco.rua);
+
+    if (endereco.numero == ENDERECO_S_NUM) {
+        printf("Número: S/N\n");
+    } else {
+        printf("Número: %d\n", endereco.numero);
+    }
+
+    printf("Bairro: %s\n", endereco.bairro);
+    printf("Complemento: %s\n", endereco.complemento);
+
+    printf(
+        "Escolaridade: %s - %s\n",
+        nivelEscolaridadeTexto(escolaridade.nivel),
+        situacaoEscolaridadeTexto(escolaridade.situacao)
+    );
+
+    printf("Estado civil: %s\n", estadoCivilTexto(estadoCivil));
+
     return 0;
 }

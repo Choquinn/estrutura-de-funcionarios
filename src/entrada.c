@@ -104,3 +104,110 @@ bool lerTextoObrigatorio(const char *mensagem, char *destino, size_t capacidade)
         return true;
     }
 }
+
+bool lerData(const char *mensagem, Data *resultado) {
+    if (resultado == NULL) return false;
+
+    Data data;
+
+    while (true) {
+        if (mensagem != NULL) {
+            printf("\n%s\n", mensagem);
+        }
+
+        if (!lerInteiro("Dia: ", &data.dia, 1, 31)) return false;
+        if (!lerInteiro("Mês: ", &data.mes, 1, 12)) return false;
+        if (!lerInteiro("Ano: ", &data.ano, 1, 9999)) return false;
+
+        if (dataValida(data)) {
+            *resultado = data;
+            return true;
+        }
+
+        printf("\nData inválida! Tente novamente.\n");
+    }
+}
+
+bool lerEndereco(Endereco *resultado) {
+    if (resultado == NULL) return false;
+
+    Endereco endereco = {0};
+
+    printf("\nEndereço do funcionário\n\n");
+
+    if (!lerTextoObrigatorio(
+        "Rua: ", endereco.rua, sizeof(endereco.rua))) return false;
+
+    if (!lerInteiro(
+        "Número (0 para S/N): ",
+        &endereco.numero, 0, INT_MAX)) return false;
+
+    if (!lerTextoObrigatorio(
+        "Bairro: ", endereco.bairro, sizeof(endereco.bairro))) return false;
+
+    while (true) {
+        if (lerLinha(
+            "Complemento (opcional): ",
+            endereco.complemento,
+            sizeof(endereco.complemento))) {
+            break;
+        }
+
+        if (feof(stdin) || ferror(stdin)) return false;
+
+        printf("Complemento muito longo! Tente novamente.\n");
+    }
+
+    *resultado = endereco;
+    return true;
+}
+
+bool lerEscolaridade(Escolaridade *resultado) {
+    if (resultado == NULL) return false;
+
+    Escolaridade escolaridade;
+    int opcao;
+
+    printf("\nEscolaridade\n\n");
+    printf("0 - Analfabeto\n");
+    printf("1 - Fundamental\n");
+    printf("2 - Médio\n");
+    printf("3 - Superior\n");
+    printf("4 - Pós-graduação\n\n");
+
+    if (!lerInteiro("Nível: ", &opcao, 0, 4)) return false;
+
+    escolaridade.nivel = (NivelEscolaridade)opcao;
+
+    if (escolaridade.nivel == ANALFABETO) {
+        escolaridade.situacao = NAO_APLICAVEL;
+    } else {
+        printf("\n1 - Incompleto\n");
+        printf("2 - Completo\n\n");
+
+        if (!lerInteiro("Situação: ", &opcao, 1, 2)) return false;
+
+        escolaridade.situacao = (SituacaoEscolaridade)opcao;
+    }
+
+    *resultado = escolaridade;
+    return true;
+}
+
+bool lerEstadoCivil(EstadoCivil *resultado) {
+    if (resultado == NULL) return false;
+
+    int opcao;
+
+    printf("\nEstado civil\n\n");
+    printf("0 - Solteiro\n");
+    printf("1 - Casado\n");
+    printf("2 - Separado\n");
+    printf("3 - Divorciado\n");
+    printf("4 - Viúvo\n\n");
+
+    if (!lerInteiro("Opção: ", &opcao, 0, 4)) return false;
+
+    *resultado = (EstadoCivil)opcao;
+    return true;
+}
